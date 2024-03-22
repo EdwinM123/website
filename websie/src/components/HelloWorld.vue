@@ -1,4 +1,7 @@
 <template>
+  <body>
+    FUCK YOU
+  </body>
   <div class="container">
     <button type="button" class="btn btn-success">fuck</button>
     <button type="button" class="btn btn-info">you</button>
