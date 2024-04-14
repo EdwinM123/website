@@ -1,30 +1,78 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, onMounted, computed, watch } from 'vue'
+
+const todos = ref([]);
+const name = ref('');
+
+const input_content=ref('');
+const input_category = ref(null);
+
+const todos_asc = computed(()=>todos.value.sort((a, b)=> {
+  return b.createdAt - a.createdAt;
+}))
+
+const addTodo=()=>{
+  if(input_content.value.trim()===''||input_category.value ===null){
+    return
+  }
+  console.log(addTodo);
+  todos.value.push()
+};
+
+watch(name, (newVal)=>{
+  localStorage.setItem('name', newVal);
+})
+
+onMounted(()=> {
+  localStorage.setItem('name', newVal);
+})
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
+  <main class='app'>
+    <section class="greeting">
+      <h2 class = "title">
+        Whats up, <input type="text" placeholder="name here"
+        v-model="name"/>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+      </h2>  
+    </section>
+    <section class='create-todo'>
+      <h3>CREATE A TODO</h3>
+
+      <form @submit.prevent="addTodo">
+        <h4>What's on your todo list?</h4>
+        <input 
+        type="text" 
+        placeholder="e.g make a video"
+        v.model="input_connect"
+        />
+        <h4>pick a category</h4>
+
+        <div class="options">
+          <label>
+            <input 
+              type="radio"
+              name="category"
+              id="category1"
+              value="business"
+              v_model="input_category"/>
+            <span class="bubble business"></span>
+            <div>Business</div>
+          </label>
+
+          <label>
+            <input 
+              type="radio"
+              name="category"
+              value="personal"
+              v-model="input_category" />
+            <span class="bubble personal"></span>
+            <div>Personal</div>  
+          </label>
+        </div>
+      </form>
+    </section>
+  </main>
+
+</template>
